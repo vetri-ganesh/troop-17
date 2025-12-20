@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troop 17 Edison/Metuchen | Scouts BSA</title>
+    <style>
+        /* --- CSS VARIABLES & THEME --- */
+        :root {
+            --bsa-red: #CE1126;
+            --bsa-navy: #003F87;
+            --bsa-olive: #657246;
+            --bsa-gold: #D69A2C;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f3f4f6;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 0.75rem;
+        }
+
+        /* --- RESET & BASE STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            scroll-behavior: smooth;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        img { width: 100%; display: block; object-fit: cover; }
+
+        /* --- NAVIGATION --- */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--bsa-navy);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--bsa-red); }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover { color: var(--bsa-red); }
+
+        .btn-primary {
+            background-color: var(--bsa-red);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 14px rgba(206, 17, 38, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #a30d1e;
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--text-dark);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            height: 90vh;
+            min-height: 600px;
+            /* High quality Unsplash image: Camping/Outdoors */
+            background: linear-gradient(rgba(0, 63, 135, 0.4), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            /* Glassmorphism effect */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* --- SECTIONS GENERAL --- */
+        section {
+            padding: 5rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--bsa-navy);
+            margin-bottom: 1rem;
+        }
+
+        .divider {
+            height: 4px;
+            width: 80px;
+            background: var(--bsa-red);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        /* --- THREE PILLARS (Grid with Images) --- */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card h3 {
+            color: var(--bsa-navy);
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        /* --- ABOUT / STATS SECTION --- */
+        .about-section {
+            background-color: var(--bsa-navy);
+            color: white;
+            border-radius: var(--radius);
+            margin: 4rem auto;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .about-content {
+            padding: 4rem 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about-image {
+            /* Image: Scouts Group/Hiking */
+            background: url('https://images.unsplash.com/photo-1517164850305-99a3e65bb47e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
+            min-height: 400px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item h4 {
+            font-size: 2.5rem;
+            color: var(--bsa-gold);
+            margin-bottom: 0.2rem;
+        }
+
+        /* --- EAGLE SCOUT & RANK --- */
+        .rank-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+            background: white;
+            padding: 3rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-left: 6px solid var(--bsa-olive);
+        }
+
+        .rank-icon img {
+            /* Image: American Flag / Badge context */
+            width: 100%;
+            height: 300px;
+            border-radius: var(--radius);
+            object-fit: cover;
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact-wrapper {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .contact-map {
+            width: 100%;
+            height: 300px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            background: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1774&q=80') center/cover;
+            position: relative;
+        }
+        
+        .map-overlay {
+            background: rgba(0,0,0,0.6);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-direction: column;
+        }
+
+        .contact-form {
+            padding: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #1a1a1a;
+            color: #aaa;
+            padding: 3rem 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hamburger { display: block; z-index: 1001; }
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                height: 100vh;
+                padding-top: 5rem;
+                transition: 0.3s;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.active { left: 0; }
+            
+            .hero-title { font-size: 2.5rem; }
+            .about-section { grid-template-columns: 1fr; }
+            .about-image { height: 250px; min-height: auto; }
+            .rank-container { grid-template-columns: 1fr; }
+            .rank-icon img { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">TROOP 17 <span>NJ</span></a>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About Us</a></li>
+                <li><a href="#activities" class="nav-link">Activities</a></li>
+                <li><a href="#resources" class="nav-link">Resources</a></li>
+                <li><a href="#contact" class="btn-primary">Join Today</a></li>
+            </ul>
+
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Prepare for Life.</h1>
+            <p class="hero-subtitle">Serving the youth of Edison & Metuchen, New Jersey with adventure, leadership, and service since 19XX.</p>
+            <a href="#contact" class="btn-primary" style="font-size: 1.1rem; padding: 0.8rem 2rem;">Start Your Adventure</a>
+        </div>
+    </section>
+
+    <!-- WHAT WE DO (Cards with Real Images) -->
+    <section id="activities">
+        <div class="section-header">
+            <h2>Our Adventures</h2>
+            <div class="divider"></div>
+            <p style="margin-top: 1rem; color: var(--text-light);">We don't just sit around. We explore the world around us.</p>
+        </div>
+
+        <div class="pillars-grid">
+            <!-- Card 1: Camping -->
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Camping Tent at Night">
+                </div>
+                <div class="card-content">
+                    <h3>Monthly Camping</h3>
+                    <p>From local state parks to high adventure bases, we camp year-round, learning survival skills and self-reliance.</p>
+                </div>
+            </div>
+
+            <!-- Card 2: Hiking/Outdoors -->
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hiking Boots on Trail">
+                </div>
+                <div class="card-content">
+                    <h3>High Adventure</h3>
+                    <p>Backpacking, canoeing, and climbing. We challenge our scouts to push their limits and build confidence.</p>
+                </div>
+            </div>
+
+            <!-- Card 3: Service -->
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Planting Trees Community Service">
+                </div>
+                <div class="card-content">
+                    <h3>Community Service</h3>
+                    <p>"Do a Good Turn Daily." We are active in Edison and Metuchen, giving back through regular service projects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT / STATS -->
+    <section id="about" style="padding: 0;">
+        <div class="about-section">
+            <div class="about-image"></div>
+            <div class="about-content">
+                <h2>Why Troop 17?</h2>
+                <div class="divider" style="margin: 0 0 2rem 0; background: var(--bsa-gold);"></div>
+                <p>We are a scout-led troop. This means the youth make the decisions, plan the events, and lead the meetings. Adults are there to guide and ensure safety, but the leadership journey belongs to the scouts.</p>
+                
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <h4>50+</h4>
+                        <p>Active Scouts</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>100+</h4>
+                        <p>Eagle Scouts</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>12</h4>
+                        <p>Trips Per Year</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>19XX</h4>
+                        <p>Year Founded</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EAGLE SCOUT & ADVANCEMENT -->
+    <section id="advancement">
+        <div class="rank-container">
+            <div class="rank-icon">
+                <img src="https://images.unsplash.com/photo-1574096079513-d82599602950?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="American Flag">
+            </div>
+            <div>
+                <h2 style="color: var(--bsa-navy);">The Path to Eagle</h2>
+                <p>Troop 17 has a proud history of guiding young men to the rank of Eagle Scout. Through merit badges, leadership positions, and a final service project, scouts learn skills that set them apart for college and careers.</p>
+                <br>
+                <a href="#" style="color: var(--bsa-red); font-weight: bold;">View our Eagle Roll of Honor &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <div class="section-header">
+            <h2>Join the Troop</h2>
+            <div class="divider"></div>
+        </div>
+
+        <div class="contact-wrapper">
+            <div class="contact-map">
+                <div class="map-overlay">
+                    <h3>Meeting Location</h3>
+                    <p>Edison / Metuchen Area</p>
+                    <p><em>(Contact us for specific time & place)</em></p>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3 style="margin-bottom: 1.5rem; color: var(--bsa-navy);">Send us a Message</h3>
+                <form onsubmit="event.preventDefault(); alert('In a real site, this would email the Scoutmaster!');">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" placeholder="Parent or Guardian Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea class="form-control" rows="4" placeholder="I'm interested in joining..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Troop 17 NJ</h4>
+                <p>Developing future leaders in Edison and Metuchen through the timeless values of the Scout Oath and Law.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#activities">Calendar</a></li>
+                    <li><a href="#">Parent Resources</a></li>
+                    <li><a href="#">Pay Dues</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Scout Law</h4>
+                <p style="font-size: 0.85rem; font-style: italic;">Trustworthy, Loyal, Helpful, Friendly, Courteous, Kind, Obedient, Cheerful, Thrifty, Brave, Clean, and Reverent.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Troop 17 Edison/Metuchen. All Rights Reserved. Not officially affiliated with the BSA National Council.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+    </script>
+</body>
+</html>
