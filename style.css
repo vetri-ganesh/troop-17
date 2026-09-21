@@ -2,7 +2,7 @@
 :root {
     --primary-black: #1a1a1a;
     --accent-blue: #c0c0c0; /* Silver */
-    --dark-blue: #a8a8a8;   /* Slightly darker silver for hover */
+    --dark-blue: #a8a8a8;   /* Hover Silver */
     --soft-white: #ffffff;
     --light-gray: #f4f7f9;
     --gray-text: #6c757d;
@@ -59,7 +59,7 @@ header {
 
 .btn-primary {
     background: var(--accent-blue);
-    color: white;
+    color: #1a1a1a;
     padding: 0.6rem 1.4rem;
     border-radius: 50px;
     text-decoration: none;
