@@ -1,8 +1,8 @@
 /* --- UNIVERSAL RESET --- */
 :root {
     --primary-black: #1a1a1a;
-    --accent-blue: #007bff;
-    --dark-blue: #0056b3;
+    --accent-blue: #c0c0c0; /* Silver */
+    --dark-blue: #a8a8a8;   /* Slightly darker silver for hover */
     --soft-white: #ffffff;
     --light-gray: #f4f7f9;
     --gray-text: #6c757d;
